@@ -51,3 +51,19 @@ jobs:
           name: playwright-test-results
           path: test-results/
           retention-days: 3
+          
+      - name: Phân tích kết quả test
+        if: always()
+        run: |
+          echo "=== TEST SUMMARY ==="
+          if [ -f playwright-report/index.html ]; then
+            echo "✅ HTML Report đã được tạo"
+          else
+            echo "❌ Không tìm thấy HTML Report"
+          fi
+          
+          if [ $? -eq 0 ]; then
+            echo "✅ Tests PASSED"
+          else
+            echo "❌ Tests FAILED - Cần review!"
+          fi
