@@ -39,11 +39,19 @@ test.describe('File Upload Feature', () => {
   test('TC10 — Verify tên file được hiển thị sau khi upload', async () => {
     // Upload file
     await uploadPage.uploadFile(testFilePath);
-    
+
     // Lấy tên file được hiển thị
     const uploadedFileName = await uploadPage.getUploadedFileName();
-    
+
     // Verify tên file khớp với file đã upload
     expect(uploadedFileName).toContain('sample-upload.txt');
+  });
+
+  test('TC16 — Verify heading hiển thị đúng text "File Uploaded!" sau khi upload', async () => {
+    // Upload file
+    await uploadPage.uploadFile(testFilePath);
+
+    // Verify heading (h3) hiển thị đúng text, không chỉ chứa substring
+    await expect(uploadPage.pageHeading).toHaveText('File Uploaded!');
   });
 });

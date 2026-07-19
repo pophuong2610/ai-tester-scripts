@@ -28,4 +28,19 @@ test.describe('Login Feature', () => {
     const flash = await loginPage.getFlashMessage();
     expect(flash).toContain('Your username is invalid!');
   });
+
+  test('TC12 — Đăng nhập thất bại khi cả username và password đều để trống', async () => {
+    // Để trống cả 2 field rồi submit form
+    await loginPage.login('', '');
+    const flash = await loginPage.getFlashMessage();
+    // Username trống nên hệ thống báo lỗi username không hợp lệ
+    expect(flash).toContain('Your username is invalid!');
+  });
+
+  test('TC13 — Đăng nhập thất bại khi username để trống', async () => {
+    // Chỉ điền password, để trống username
+    await loginPage.login('', 'SuperSecretPassword!');
+    const flash = await loginPage.getFlashMessage();
+    expect(flash).toContain('Your username is invalid!');
+  });
 });
