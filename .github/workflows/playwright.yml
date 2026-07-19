@@ -5,17 +5,22 @@ on:
     branches: [d28-automation-suite, main]
   pull_request:
     branches: [main]
+  workflow_dispatch:
 
 jobs:
   test:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
           node-version: '20'
+          cache: 'npm'
 
       - name: Cài đặt dependencies
         run: npm ci
@@ -24,12 +29,25 @@ jobs:
         run: npx playwright install --with-deps chromium firefox
 
       - name: Chạy Playwright tests
-        run: npx playwright test
+        run: npx playwright test --workers=2
+        env:
+          CI: true
+          BASE_URL: ${{ secrets.BASE_URL }}
+          TEST_USERNAME: ${{ secrets.TEST_USERNAME }}
+          TEST_PASSWORD: ${{ secrets.TEST_PASSWORD }}
 
       - name: Upload HTML Report
         uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: playwright-report
+          name: playwright-html-report
           path: playwright-report/
-          retention-days: 30
+          retention-days: 7
+
+      - name: Upload Test Results
+        uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: playwright-test-results
+          path: test-results/
+          retention-days: 3
