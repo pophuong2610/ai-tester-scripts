@@ -9,13 +9,11 @@ test.describe('Login Feature', () => {
     await loginPage.goto();
   });
 
-  test('TC01 — Đăng nhập thành công với thông tin hợp lệ', async ({ page }) => {
-    await loginPage.login('tomsmith', 'SuperSecretPassword!');
-    const isLoggedIn = await loginPage.isLoggedIn();
-    expect(isLoggedIn).toBe(true);
-    const flash = await loginPage.getFlashMessage();
-    expect(flash).toContain('You logged into a secure area!');
-  });
+  ttest('TC01 — Đăng nhập thành công với thông tin hợp lệ', async ({ page }) => {
+  await loginPage.login('tomsmith', 'SuperSecretPassword!');
+  // Cố tình sai để fail
+  await expect(page.locator('#nonexistent-element')).toBeVisible();
+});
 
   test('TC02 — Đăng nhập thất bại với mật khẩu sai', async () => {
     await loginPage.login('tomsmith', 'wrongpassword');

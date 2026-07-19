@@ -13,15 +13,10 @@ test.describe('Checkboxes Feature', () => {
   });
 
   test('TC04 — Verify trạng thái mặc định của checkboxes', async () => {
-    // Theo spec của trang demo:
-    // Checkbox 1 (index 0): unchecked
-    // Checkbox 2 (index 1): checked
-    const cb1Checked = await checkboxesPage.isChecked(checkboxesPage.checkbox1);
-    const cb2Checked = await checkboxesPage.isChecked(checkboxesPage.checkbox2);
-    
-    expect(cb1Checked).toBe(false);  // Checkbox 1 mặc định unchecked
-    expect(cb2Checked).toBe(true);   // Checkbox 2 mặc định checked
-  });
+  const cb1 = await checkboxesPage.isChecked(checkboxesPage.checkbox1);
+  // Cố tình sai expected value
+  expect(cb1).toBe(true); // thực tế là false
+});
 
   test('TC05 — Check checkbox 1 thành công', async () => {
     // Checkbox 1 mặc định unchecked — check nó
