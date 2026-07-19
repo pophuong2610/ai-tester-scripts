@@ -21,7 +21,7 @@ jobs:
         run: npm ci
 
       - name: Cài Playwright browsers
-        run: npx playwright install --with-deps chromium
+        run: npx playwright install --with-deps chromium firefox
 
       - name: Chạy Playwright tests
         run: npx playwright test
