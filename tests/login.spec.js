@@ -9,7 +9,7 @@ test.describe('Login Feature', () => {
     await loginPage.goto();
   });
 
-  test('TC01 — Đăng nhập thành công với thông tin hợp lệ', async ({ page }) => {
+  ttest('TC01 — Đăng nhập thành công với thông tin hợp lệ', async ({ page }) => {
   await loginPage.login('tomsmith', 'SuperSecretPassword!');
   // Cố tình sai để fail
   await expect(page.locator('#nonexistent-element')).toBeVisible();
