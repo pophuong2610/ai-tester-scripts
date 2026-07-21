@@ -1,0 +1,47 @@
+{
+  "defaultOption": {
+    "_comment": "Option mặc định khi trang load — disabled, không thể submit",
+    "label": "Please select an option",
+    "value": "",
+    "isDisabled": true
+  },
+  "option1": {
+    "_comment": "Option 1 — valid selection, value='1' theo HTML source",
+    "label": "Option 1",
+    "value": "1",
+    "isDisabled": false
+  },
+  "option2": {
+    "_comment": "Option 2 — valid selection, value='2' theo HTML source",
+    "label": "Option 2",
+    "value": "2",
+    "isDisabled": false
+  },
+  "scenarios": {
+    "happyPath": {
+      "_comment": "Data cho TC-DROP-02 và TC-DROP-03",
+      "selectOption1": { "selectBy": "value", "input": "1", "expectedValue": "1" },
+      "selectOption2": { "selectBy": "label", "input": "Option 2", "expectedValue": "2" }
+    },
+    "switchOption": {
+      "_comment": "Data cho TC-DROP-04 và TC-DROP-05 — test đổi option",
+      "from1to2": {
+        "firstSelect": "1",
+        "secondSelect": "2",
+        "expectedFinal": "2"
+      },
+      "from2to1": {
+        "firstSelect": "2",
+        "secondSelect": "1",
+        "expectedFinal": "1"
+      }
+    },
+    "outline": {
+      "_comment": "Data cho Scenario Outline — mỗi row là 1 test case",
+      "options": [
+        { "label": "Option 1", "value": "1" },
+        { "label": "Option 2", "value": "2" }
+      ]
+    }
+  }
+}
